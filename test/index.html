@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TestCanvans</title>
+  </head>
+  <body>
+    <canvas id="thecanvas"></canvas>
+    <button id="btn-down">Download</button>
+    <script src="/next-js-core2/dist/next-js-core2.js"></script>
+    <script src="/next-object-url/dist/next-object-url.js"></script>
+    <script src="/next-canvas2image.js"></script>
+    <script>
+      var canvas = document.getElementById('thecanvas');
+      var btnDown = document.getElementById('btn-down');
+      function draw() {
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'rgba(125, 46, 138, 0.5)';
+        ctx.fillRect(25, 25, 100, 100);
+        ctx.fillStyle = 'rgba( 0, 146, 38, 0.5)';
+        ctx.fillRect(58, 74, 125, 100);
+      }
+      draw();
+
+      btnDown.onclick = function() {
+        console.log('download!');
+        nx.Canvas2image.save(canvas);
+      };
+    </script>
+  </body>
+</html>
