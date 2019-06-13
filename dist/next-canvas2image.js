@@ -16,18 +16,23 @@
       save: function(inCanvas, inOptions) {
         var anchorEl = document.createElement('a');
         var options = nx.mix(null, DEFAULT_OPTIONS, inOptions);
-        inCanvas.toBlob(function(blob) {
-          var blobRes = NxObjectUrl.create(blob);
+        var docBody = document.body;
+        return new Promise(function(resolve, reject) {
+          inCanvas.toBlob(function(blob) {
+            var blobRes = NxObjectUrl.create(blob);
 
-          // create download link && download:
-          anchorEl.href = blobRes.url;
-          anchorEl.download = options.filename;
-          document.body.appendChild(anchorEl);
-          anchorEl.click();
+            // create download link && download:
+            anchorEl.href = blobRes.url;
+            anchorEl.download = options.filename;
+            docBody.appendChild(anchorEl);
+            anchorEl.click();
 
-          // destroy res:
-          document.body.removeChild(anchorEl);
-          blobRes.destroy();
+            // destroy res:
+            docBody.removeChild(anchorEl);
+            blobRes.destroy();
+
+            resolve();
+          });
         });
       }
     }
